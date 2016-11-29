@@ -30,7 +30,7 @@ app.get('/', function(request, response)
 		   { console.error(err); response.send("Error " + err); }
 		  else
 		   { response.render('pages/db', {results: result.rows} ); }
-		});
+		});*/
 
 		/*/add element
 		client.query('insert into test_table values (1, \'hello database\')', function(err, result) {
