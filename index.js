@@ -52,15 +52,16 @@ app.get('/', function(request, response)
 			response.send("Error select" + err); }
 		  else
 		   {
-			   console.log("ok");
+			    console.log("ok");
 				text = "<p>Dump db: <br> " + util.inspect(result) + ".</p>";
 				text = text + "<br> <br>";
+			   console.log("text: "+text);
 
 		   }
 		});
 
+		console.log("text: "+text);
 		response.end(text);
-    	
 	    
   	});
   	
