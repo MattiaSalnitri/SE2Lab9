@@ -16,43 +16,45 @@ app.get('/', function(request, response)
 {
 	var text = '';
 	response.writeHead(200, {'Content-Type': 'text/html'});
+	
+	console.log("called");
 
 	pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+		
+		console.log("connected to db");
 	
-	//create table	
-	client.query('create table test_table (id integer, name text)', function(err, result) {
-	  done();
-	  if (err)
-	   { console.error(err); response.send("Error " + err); }
-	  else
-	   { response.render('pages/db', {results: result.rows} ); }
-	});
-		
-		
+		/*create table	
+		client.query('create table test_table (id integer, name text)', function(err, result) {
+		  done();
+		  if (err)
+		   { console.error(err); response.send("Error " + err); }
+		  else
+		   { response.render('pages/db', {results: result.rows} ); }
+		});
 
-	/*/add element
-	client.query('insert into test_table values (1, \'hello database\')', function(err, result) {
-	  done();
-	  if (err)
-	   { console.error(err); response.send("Error insert " + err); }
-	  else
-	   { }
-	});*/
+		/*/add element
+		client.query('insert into test_table values (1, \'hello database\')', function(err, result) {
+		  done();
+		  if (err)
+		   { console.error(err); response.send("Error insert " + err); }
+		  else
+		   { }
+		});*/
 
-	//query
-	client.query('SELECT * FROM test_table', function(err, result) {
-	  done();
-	  if (err)
-	   { console.error(err); response.send("Error select" + err); }
-	  else
-	   { 
-			text = "<p>Dump db: <br> " + util.inspect(result) + ".</p>";
-			text = text + "<br> <br>";
+		//query
+		client.query('SELECT * FROM test_table', function(err, result) {
+		  done();
+		  if (err)
+		   { console.error(err); response.send("Error select" + err); }
+		  else
+		   { 
+				text = "<p>Dump db: <br> " + util.inspect(result) + ".</p>";
+				text = text + "<br> <br>";
 
-	   }
-	});
-  
-  		response.end(text);
+		   }
+		});
+
+			response.end(text);
     	
 	    
   	});
