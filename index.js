@@ -14,7 +14,7 @@ app.set('port', (process.env.PORT || 5000));
 
 app.get('/', function(request, response) 
 {
-	var text = '';
+	var text = 'responce:';
 	response.writeHead(200, {'Content-Type': 'text/html'});
 	
 	console.log("called");
@@ -44,6 +44,8 @@ app.get('/', function(request, response)
 		//query
 		client.query('SELECT * FROM test_table', function(err, result) {
 		  done();
+		  console.log("callback select");
+			
 		  if (err)
 		   { console.error(err); response.send("Error select" + err); }
 		  else
@@ -54,7 +56,7 @@ app.get('/', function(request, response)
 		   }
 		});
 
-			response.end(text);
+		response.end(text);
     	
 	    
   	});
