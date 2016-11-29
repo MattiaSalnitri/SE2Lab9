@@ -59,12 +59,11 @@ app.get('/', function(request, response)
 
 		   }
 		});
-
-		console.log("text: "+text);
-		response.end(text);
 	    
   	});
   	
+	console.log("text: "+text);
+	response.end(text);
 
 });
 
