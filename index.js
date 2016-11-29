@@ -46,10 +46,13 @@ app.get('/', function(request, response)
 		  done();
 		  console.log("callback select");
 			
-		  if (err)
-		   { console.error(err); response.send("Error select" + err); }
+		  if (err){ 
+			console.log("error");
+			console.error(err); 
+			response.send("Error select" + err); }
 		  else
-		   { 
+		   {
+			   console.log("ok");
 				text = "<p>Dump db: <br> " + util.inspect(result) + ".</p>";
 				text = text + "<br> <br>";
 
