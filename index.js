@@ -27,7 +27,7 @@ app.get('/select/', function(request, response)
 				response.end("Error select" + err); 
 		  	}
 		  	else {
-				text = "<p>Dump db: <br> " + util.inspect(result) + ".</p>";
+				text = "<p>Dump db: <br> " + util.inspect(result.rows) + ".</p>";
 				text = text + "<br> <br>";
 		  	}
 			
@@ -58,7 +58,7 @@ app.get('/create/', function(request, response)
 			   response.send("Error " + err); 
 		   }
 		  else{ 
-			  response.render('pages/db', {results: result.rows} ); 
+			  response.end("table created");
 		   }
 		});
 
@@ -81,15 +81,14 @@ app.get('/add/', function(request, response)
 		//add element
 		client.query('insert into test_table values (1, \'hello database\')', function(err, result) {
 		  done();
-		  if (err)
-		   { console.error(err); response.send("Error insert " + err); }
-		  else
-		   { }
+		  if (err) { 
+			  console.error(err); 
+			  response.send("Error insert " + err); }
+		  else {
+			  response.end("row added");
+		   }
 		});
   	});
-  	
-	console.log("text: "+text);
-	response.end(text);
 
 });
 
