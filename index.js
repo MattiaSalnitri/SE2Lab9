@@ -27,12 +27,13 @@ app.get('/select/', function(request, response)
 				response.end("Error select" + err); 
 		  	}
 		  	else {
+				response.render('pages/db', {results: result.rows} ); 
 				text = "<p>Dump db: <br> " + util.inspect(result) + ".</p>";
 				text = text + "<br> <br>";
 		  	}
 			
-			console.log("text final: "+text);
-			response.end(text);
+			//console.log("text final: "+text);
+			//response.end(text);
 		});
   	});
 
@@ -52,24 +53,18 @@ app.get('/create/', function(request, response)
 		//create table	
 		client.query('create table test_table (id integer, name text)', function(err, result) {
 		  done();
-		  if (err)
-		   { console.error(err); response.send("Error " + err); }
-		  else
-		   { response.render('pages/db', {results: result.rows} ); }
+			
+		  if (err){ 
+			   console.error(err); 
+			   response.send("Error " + err); 
+		   }
+		  else{ 
+			  response.render('pages/db', {results: result.rows} ); 
+		   }
 		});
 
-		//add element
-		client.query('insert into test_table values (1, \'hello database\')', function(err, result) {
-		  done();
-		  if (err)
-		   { console.error(err); response.send("Error insert " + err); }
-		  else
-		   { }
-		});
   	});
   	
-	console.log("text: "+text);
-	response.end(text);
 
 });
 
