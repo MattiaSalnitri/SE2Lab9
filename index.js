@@ -16,37 +16,18 @@ app.get('/select/', function(request, response)
 {
 	var text = 'responce:';
 	response.writeHead(200, {'Content-Type': 'text/html'});
-	
-	console.log("called");
 
 	pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-		
-		console.log("connected to db");
-
 		//query
 		client.query('SELECT * FROM test_table', function(err, result) {
-		  done();
-		  console.log("callback select");
+		  done();//release the client back to the pool
 			
-		  if (err){ 
-			console.log("error");
-			console.error(err); 
-			response.send("Error select" + err); }
-		  else
-		   {
-			    console.log("ok");
-				text = "<p>Dump db: <br> " + util.inspect(result) + ".</p>";
-				text = text + "<br> <br>";
-			   console.log("text: "+text);
 
-		   }
 		});
-		
-		console.log("text: "+text);
-		response.end(text);
-	    
   	});
  
+	console.log("text final: "+text);
+	response.end(text);
 
 });
 
