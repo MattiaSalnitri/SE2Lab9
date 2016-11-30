@@ -27,7 +27,7 @@ app.get('/select/', function(request, response)
 				response.end("Error select" + err); 
 		  	}
 		  	else {
-				text = "<p>Dump db: <br> " + util.inspect(result.rows) + ".</p>";
+				text = "<p>Dump db: <br> " + util.inspect(result) + ".</p>";
 				text = text + "<br> <br>";
 		  	}
 			
