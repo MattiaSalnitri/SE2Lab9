@@ -20,9 +20,18 @@ app.get('/select/', function(request, response)
 	pg.connect(process.env.DATABASE_URL, function(err, client, done) {
 		//query
 		client.query('SELECT * FROM test_table', function(err, result) {
-		  done();//release the client back to the pool
+			done();//release the client back to the pool
 			
-
+			if (err){ 
+				console.error(err); 
+				response.end("Error select" + err); 
+		  	}
+		  	else {
+			    console.log("ok");
+				text = "<p>Dump db: <br> " + util.inspect(result) + ".</p>";
+				text = text + "<br> <br>";
+			    console.log("text: "+text);
+		  	}
 		});
   	});
  
