@@ -27,16 +27,14 @@ app.get('/select/', function(request, response)
 				response.end("Error select" + err); 
 		  	}
 		  	else {
-			    console.log("ok");
 				text = "<p>Dump db: <br> " + util.inspect(result) + ".</p>";
 				text = text + "<br> <br>";
-			    console.log("text: "+text);
 		  	}
+			
+			console.log("text final: "+text);
+			response.end(text);
 		});
   	});
- 
-	console.log("text final: "+text);
-	response.end(text);
 
 });
 
