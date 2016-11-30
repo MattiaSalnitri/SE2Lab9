@@ -27,13 +27,12 @@ app.get('/select/', function(request, response)
 				response.end("Error select" + err); 
 		  	}
 		  	else {
-				response.render('pages/db', {results: result.rows} ); 
-				text = "<p>Dump db: <br> " + util.inspect(result) + ".</p>";
+				text = "<p>Dump db: <br> " + util.inspect(result.rows) + ".</p>";
 				text = text + "<br> <br>";
 		  	}
 			
-			//console.log("text final: "+text);
-			//response.end(text);
+			console.log("text final: "+text);
+			response.end(text);
 		});
   	});
 
