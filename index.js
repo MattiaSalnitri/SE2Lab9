@@ -6,22 +6,29 @@ var pg = require('pg');
 //GET
 var util = require('util');
 //post
-var bodyParser = require('body-parser')
-app.use(bodyParser.urlencoded({ extended: false }))
-//app.use(bodyParser.json())// JSON
 
 app.set('port', (process.env.PORT || 5000));
 
+/**
+ * @brief run select query
+ * @return content of table test_table
+ */
 app.get('/select/', function(request, response) 
 {
 	var text = 'responce:';
 	response.writeHead(200, {'Content-Type': 'text/html'});
 
-	pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+	//connect to database
+	pg.connect(
+		//enviromental variable, set by heroku when first databse is created
+		process.env.DATABASE_URL, 
+		function(err, client, done) {
 		//query
 		client.query('SELECT * FROM test_table', function(err, result) {
-			done();//release the client back to the pool
+			//release the client back to the pool
+			done();
 			
+			//manages err
 			if (err){ 
 				console.error(err); 
 				response.end("Error select" + err); 
@@ -31,6 +38,7 @@ app.get('/select/', function(request, response)
 				text = text + "<br> <br>";
 		  	}
 			
+			//response here, otherwise the page will be sent before the execution of the query
 			console.log("text final: "+text);
 			response.end(text);
 		});
@@ -38,6 +46,10 @@ app.get('/select/', function(request, response)
 
 });
 
+/**
+ * @brief run select query
+ * @return notification or error
+ */
 app.get('/create/', function(request, response) 
 {
 	var text = 'responce:';
@@ -67,6 +79,10 @@ app.get('/create/', function(request, response)
 
 });
 
+/**
+ * @brief run add query
+ * @return notification or error
+ */
 app.get('/add/', function(request, response) 
 {
 	var text = 'responce:';
